@@ -72,7 +72,6 @@ useEffect(() => {
 ### Custom Action creator function
 
 - In JavaScript we can write functions that returns another function
--
 
 ```
 export const sendCartData = (cart) => {
