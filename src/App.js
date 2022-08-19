@@ -28,7 +28,7 @@ function App() {
         })
       );
       const response = await fetch(
-        "https://reactapp-7f854-default-rtdb.firebaseio.com/cart",
+        "https://reactapp-7f854-default-rtdb.firebaseio.com/cart.json",
         {
           // put and post, put overrides existing data
           method: "PUT",
