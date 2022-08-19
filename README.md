@@ -41,3 +41,12 @@ const response = await fetch(
 - To prevent initial fetch HTTP request (and override existing data with empty data) due to useEffect behavior: used global variable `let isInitial`
 - isInitial is outside of the APP component, hence it only initialize at the app.js file parsed at the begining (page reload).
 - Also newly created `showNotification` ui-slice was used to dynamically show the notification status of _pending_, _success_ and _error_ status.
+
+## Action Creator Thunk
+
+By Write our own Action creators
+
+### Thunk:
+
+A function that delays an action until later: can write action creator as a **thunk**
+more explanation on **THUNK**: An action creator function that does `not` return the action itself but another function which eventually returns the action.
