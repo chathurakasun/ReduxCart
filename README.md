@@ -121,3 +121,5 @@ export const sendCartData = (cart) => {
 };
 
 ```
+
+![final](/src/assets/final.jpg)
