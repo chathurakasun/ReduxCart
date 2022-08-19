@@ -48,5 +48,77 @@ By Write our own Action creators
 
 ### Thunk:
 
-A function that delays an action until later: can write action creator as a **thunk**
-more explanation on **THUNK**: An action creator function that does `not` return the action itself but another function which eventually returns the action.
+A function that delays an action until later: can write action creator as a **thunk**.
+
+More explanation on **THUNK**: An action creator function that does `not` return the action itself but another function which eventually returns the action.
+
+- In the component method: always dispatch action creators (functions that returns an action object)
+- But action creator method: dispatching a function (here sendCartData) that returns another function
+- That returning another function will execute by redux and inside that we can perform side-effects
+
+### dispatch the sendCartData()
+
+```
+useEffect(() => {
+    if (isInitial) {
+      isInitial = false;
+      return;
+    }
+
+    dispatch(sendCartData(cart));
+  }, [cart, dispatch]);
+```
+
+### Custom Action creator function
+
+- In JavaScript we can write functions that returns another function
+-
+
+```
+export const sendCartData = (cart) => {
+  return async (dispatch) => {
+    dispatch(
+      uiActions.showNotification({
+        status: "pending",
+        title: "Sending...",
+        message: "Sending cart data!",
+      })
+    );
+
+    const sendRequest = async () => {
+      const response = await fetch(
+        "https://<API_URL>/cart.json",
+        {
+          method: "PUT",
+          body: JSON.stringify(cart),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Sending cart data failed.");
+      }
+    };
+
+    try {
+      await sendRequest();
+
+      dispatch(
+        uiActions.showNotification({
+          status: "success",
+          title: "Success!",
+          message: "Sent cart data successfully!",
+        })
+      );
+    } catch (error) {
+      dispatch(
+        uiActions.showNotification({
+          status: "error",
+          title: "Error!",
+          message: "Sending cart data failed!",
+        })
+      );
+    }
+  };
+};
+
+```
